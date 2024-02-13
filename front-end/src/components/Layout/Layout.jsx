@@ -14,7 +14,7 @@ export function Layout({ children }) {
                 <TopBar>
                     <MainMenu />
                     <Logo />
-                    <div className="flex flex-column items-center justify-center gap-4">
+                    <div className="flex flex-column items-center justify-end gap-4">
                         <CurrencySelector />
                         <IconMenu />
                     </div>

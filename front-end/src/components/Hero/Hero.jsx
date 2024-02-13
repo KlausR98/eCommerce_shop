@@ -13,7 +13,7 @@ export function Hero({ heroImage }) {
                 inline-flex">
                     <h2 className="text-2xl font-[750]">Letnie promocje do -70%!</h2>
                     <p>Tylko najlepsze okazje!</p>
-                    <FullWidthButton>SPRAWDŹ PRODUKTY</FullWidthButton>
+                    <FullWidthButton background={['#056943']}>SPRAWDŹ PRODUKTY</FullWidthButton>
                 </div>
 
             </CenterContent>

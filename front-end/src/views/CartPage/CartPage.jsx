@@ -1,8 +1,10 @@
 import { Layout } from "../../components/Layout/Layout";
-import { FavouriteProductList } from "../../components/FavouriteProductList/FavouriteProductList";
+import { CartPoductList } from "../../components/CartProductList/CartProductList";
+import { FlexContainer } from "../../components/FlexContainer/FlexContainer";
+import { CartSummary } from "../../components/CartSummary/CartSummary";
 
-export function FavouritesPage() {
-    const favouriteProducts = [
+export function CartPage() {
+    const cartProducts = [
         {
             "id": 27,
             "gender": "women",
@@ -41,7 +43,10 @@ export function FavouritesPage() {
 
     return (
         <Layout>
-            <FavouriteProductList favouriteProducts={favouriteProducts} />
+            <FlexContainer>
+                <CartPoductList cartProducts={cartProducts} />
+                <CartSummary cartProducts={cartProducts} />
+            </FlexContainer>
         </Layout>
     );
-} 
+}
