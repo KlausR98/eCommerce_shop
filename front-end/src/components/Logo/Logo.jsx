@@ -1,5 +1,9 @@
+import { NavLink } from "react-router-dom";
+
 export function Logo() {
     return (
-        <h1 className="uppercase font-bold text-center">TOPSKLEP®</h1>
+        <NavLink to="/">
+            <h1 className="uppercase font-semibold text-center">TOPSKLEP®</h1>
+        </NavLink>
     );
 }

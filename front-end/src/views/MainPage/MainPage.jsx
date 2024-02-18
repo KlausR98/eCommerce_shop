@@ -1,7 +1,7 @@
 import { Hero } from "../../components/Hero/Hero";
-import { Layout } from "../../components/Layout/Layout";
-import COVER_IMAGE from "../../assets/summersale.jpeg";
+// import COVER_IMAGE from "../../assets/summersale.jpeg";
 import { Bestsellers } from "../../components/Bestsellers/Bestsellers";
+import { useLoaderData } from "react-router-dom";
 
 export function MainPage() {
     const products = [
@@ -75,10 +75,12 @@ export function MainPage() {
         },
     ];
 
+    const { bestsellers, heroImageUrl } = useLoaderData();
+
     return (
-        <Layout>
-            <Hero heroImage={COVER_IMAGE} />
-            <Bestsellers products={products} />
-        </Layout>
+        <>
+            <Hero heroImage={heroImageUrl} />
+            <Bestsellers products={bestsellers} />
+        </>
     );
 }

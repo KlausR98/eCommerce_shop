@@ -1,4 +1,4 @@
-import { Layout } from "../../components/Layout/Layout";
+// import { Layout } from "../../components/Layout/Layout";
 import { FlexContainer } from "../../components/FlexContainer/FlexContainer";
 import { ExpandableMenuSidebar } from "../../components/ExpandableMenuSidebar/ExpandableMenuSidebar";
 import { Breadcrumbs } from "../../components/Breadcrumbs/Breadcrumbs";
@@ -589,18 +589,16 @@ export function ProductListPage() {
     ];
 
     return (
-        <Layout>
-            <FlexContainer>
-                <ExpandableMenuSidebar />
-                <div className="flex flex-col">
-                    <Breadcrumbs />
-                    <AllProductsContainer
-                        headTitle={'Swetry'.toUpperCase()}
-                        products={products}
-                    />
-                    <Pagination numberOfPages={5} />
-                </div>
-            </FlexContainer>
-        </Layout>
+        <FlexContainer>
+            <ExpandableMenuSidebar />
+            <div className="flex flex-col">
+                <Breadcrumbs />
+                <AllProductsContainer
+                    headTitle={'Swetry'.toUpperCase()}
+                    products={products}
+                />
+                <Pagination numberOfPages={5} />
+            </div>
+        </FlexContainer>
     );
 }
