@@ -1,23 +1,33 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import ArrowIcon from "../../assets/arrow.svg";
+import { CATEGORIES, GENDERS } from "../../constants/categories";
 
 export function Breadcrumbs() {
-    const activePath = "swetry";
+    const { gender, category, subCategory } = useParams();
+
+    const foundGender = GENDERS.find((g) => g.path === gender);
+    const foundCategory = CATEGORIES.find((c) => c.path === category);
 
     const breadcrumbs = [
         {
-            categoryName: "Kobieta",
-            path: "kobieta"
+            categoryName: foundGender.categoryName,
+            path: `/${foundGender.path}`,
         },
         {
-            categoryName: "Odzież",
-            path: "odziez"
+            categoryName: foundCategory.categoryName,
+            path: `/${foundGender.path}/${foundCategory.path}`,
         },
-        {
-            categoryName: "Swetry",
-            path: "swetry"
-        }
     ];
+
+    if (subCategory) {
+        const foundSubCategory = foundCategory.subCategories.find(
+            (sc) => sc.path === subCategory);
+
+        breadcrumbs.push({
+            categoryName: foundSubCategory.categoryName,
+            path: `/${foundGender.path}/${foundCategory.path}/${foundSubCategory.path}`
+        });
+    }
 
     return (
         <ul className="flex flex-row uppercase gap-2 pt-4 px-4">
@@ -26,15 +36,8 @@ export function Breadcrumbs() {
 
                 return (
                     <li key={breadcrumb.path}>
-                        <NavLink
-                            className="flex flex-row gap-1 "
-                            to={breadcrumb.path}
-                        >
-                            <p
-                                className={`${activePath === breadcrumb.path ? 'font-semibold' : ''}`}
-                            >
-                                {breadcrumb.categoryName}
-                            </p>
+                        <NavLink to={breadcrumb.path} className={`flex flex-row gap-1 ${isLast ? 'font-semibold' : ''}`}>
+                            {breadcrumb.categoryName}
                             {!isLast && (
                                 <img
                                     className="rotate-[270deg]"
