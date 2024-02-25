@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useFetcher } from "react-router-dom";
 import Heart from "../../assets/heart.svg";
 import { useState } from "react";
 import HeartFull from "../../assets/heart-full.svg";
+import { Price } from "../Price/Price";
 
 const ENDPOINT_TO_PATH_MAPPING = {
     men: "mezczyzna",
@@ -11,6 +12,8 @@ const ENDPOINT_TO_PATH_MAPPING = {
 
 export function Product({ product }) {
     const [isHovered, setIsHovered] = useState(false);
+    const { Form } = useFetcher();
+
 
     return (
         <Link
@@ -19,15 +22,26 @@ export function Product({ product }) {
         >
             <img className="h-[300px] w-[200px]" src={product.photos[0]} />
             <p className="font-[750]">{product.productName}</p>
-            <p className="text-[#C60C0C] ">{product.pricePLN}zł</p>
-
-            <img
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                src={isHovered ? HeartFull : Heart}
-                alt="Heart"
-                className="absolute top-2 left-2 w-6 h-6 bg-no-repeat bg-cover"
-            />
-        </Link>
+            <p className="text-[#C60C0C] ">
+                <Price product={product} />
+            </p>
+            <Form
+                onClick={(e) => {
+                    e.stopPropagation();
+                }}
+                method="POST"
+                action={`/add-to-favourites/${product.id}`}
+            >
+                <button>
+                    <img
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        src={isHovered ? HeartFull : Heart}
+                        alt="Heart"
+                        className="absolute top-2 left-2 w-6 h-6 bg-no-repeat bg-cover"
+                    />
+                </button>
+            </Form>
+        </Link >
     );
 }

@@ -15,6 +15,7 @@ export function CartPoductList({ cartProducts }) {
                             />
                         )
                     })}
+
                 </div>
             </div>
         </CenterContent >

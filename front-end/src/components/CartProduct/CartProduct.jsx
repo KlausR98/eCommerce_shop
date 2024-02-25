@@ -1,30 +1,32 @@
 import RemoveIcon from "../../assets/remove.svg";
-// import BagIcon from "../../assets/bag.svg";
 import { NavLink } from "react-router-dom";
+import { Price } from "../Price/Price";
 
 export function CartProduct({ cartProduct }) {
+    const price = <Price product={cartProduct} />;
+
     return (
 
         <div className="w-full border-t-2 border-solid border-[#7A7A7A] 
         flex flex-start py-4"
         >
             <img
-                src={cartProduct.photos[2]}
+                src={cartProduct.photos[0]}
                 alt="productPhoto"
                 className="h-[140px] w-[85px]"
             />
             <div className="px-12 flex flex-col justify-between w-full">
                 <div className=" w-full">
-                    <p className="font-semibold flex flex-row w-full 
+                    <div className="font-semibold flex flex-row w-full 
                     justify-between pb-[17px] "
                     >
                         <p>{cartProduct.productName}</p>
-                        <p>{cartProduct.pricePLN}zł</p>
-                    </p>
+                        <p>{price}</p>
+                    </div>
                     <div className="flex flex-start gap-1">
                         <p className="text-[#7A7A7A]">Cena:</p>
                         <p className="font-semibold">
-                            {cartProduct.pricePLN}zł
+                            {price}
                         </p>
                     </div>
                 </div>

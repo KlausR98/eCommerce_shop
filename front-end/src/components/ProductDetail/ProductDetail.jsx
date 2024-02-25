@@ -2,27 +2,41 @@ import CarIcon from "../../assets/car.svg";
 import ReverseIcon from "../../assets/return.svg";
 import { FullWidthButton } from "../FullWidthButton/FullWidthButton";
 import { AcordionContent } from "../AcordionContent/AcordionContent";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 export function ProductDetail({ product }) {
+    const [cartItems, setCartItems] = useContext(CartContext);
+
     const accordionContent = [
         {
             title: "Opis produktu",
-            content: product[0].description,
+            content: product.description,
         },
         {
             title: "Wskazówki pielęgnacyjne",
-            content: product[0].maintenanceInfo,
+            content: product.maintenanceInfo,
         },
     ];
 
     return (
         <div className="ml-24 flex flex-col w-full">
 
-            <h2 className="font-semibold">{product[0].brand}</h2>
-            <h3>{product[0].productName}</h3>
-            <h2 className="text-[#C60C0C] pb-8">{product[0].pricePLN}zł</h2>
+            <h2 className="font-semibold">{product.brand}</h2>
+            <h3>{product.productName}</h3>
+            <h2 className="text-[#C60C0C] pb-8">{product.pricePLN}zł</h2>
 
-            <FullWidthButton background={'#222020'} width={'full'}>DODAJ DO KOSZYKA</FullWidthButton>
+            <FullWidthButton
+                onClick={() => {
+                    setCartItems((previousCartItems) => {
+                        return [...previousCartItems, product];
+                    });
+                }}
+                background={'#222020'}
+                width={'full'}
+            >
+                DODAJ DO KOSZYKA
+            </FullWidthButton>
 
             <ul className=" flex flex-col">
                 <li className="flex flex-row items-center gap-4 pb-2">

@@ -1,13 +1,30 @@
 import { FullWidthButton } from "../FullWidthButton/FullWidthButton";
 import CarIcon from "../../assets/car.svg";
+import { useContext } from "react";
+import { CurrencyContext } from "../../contexts/CurrencyContext";
+import { CURRENCIES, CURRENCY_SIGN } from "../../constants/currencies";
 
 export function CartSummary({ cartProducts }) {
-    const deliveryCost = 49;
-    const minSumForFreeDelivery = 500;
+    const [currency] = useContext(CurrencyContext);
+
+    const deliveryCosts = {
+        [CURRENCIES.USD]: 10,
+        [CURRENCIES.PLN]: 49,
+    };
+
+    const minSumsForFreeDelivery = {
+        [CURRENCIES.USD]: 100,
+        [CURRENCIES.PLN]: 490,
+    };
+
+    const currencySign = CURRENCY_SIGN[currency];
+
+    const deliveryCost = deliveryCosts[currency];
+    const minSumForFreeDelivery = minSumsForFreeDelivery[currency];
 
     let sum = 0;
     cartProducts.forEach((cartProduct) => {
-        sum += cartProduct.pricePLN;
+        sum += currency === CURRENCIES.PLN ? cartProduct.pricePLN : cartProduct.priceUSD;
     });
 
     const totalCost = sum > minSumForFreeDelivery ? sum : sum + deliveryCost;
@@ -20,15 +37,15 @@ export function CartSummary({ cartProducts }) {
             >
                 <div className="flex flex-row justify-between pt-4">
                     <p>Wartość produktów:</p>
-                    <p>{sum}zł</p>
+                    <p>{sum}{currencySign}</p>
                 </div>
                 <div className="flex flex-row justify-between pt-4">
                     <p>Koszt dostawy:</p>
-                    <p>{sum > minSumForFreeDelivery ? 0 : deliveryCost}zł</p>
+                    <p>{sum > minSumForFreeDelivery ? 0 : deliveryCost}{currencySign}</p>
                 </div>
                 <div className="flex flex-row justify-between pt-4">
                     <p className="font-semibold">Do zapłaty:</p>
-                    <p className="font-semibold">{totalCost}zł</p>
+                    <p className="font-semibold">{totalCost}{currencySign}</p>
                 </div>
             </div>
             <FullWidthButton background={'#222020'}>DO KASY</FullWidthButton>
@@ -37,7 +54,7 @@ export function CartSummary({ cartProducts }) {
                     src={CarIcon}
                     className=""
                 />
-                <p className="font-semibold">Darmowa dostawa od {minSumForFreeDelivery}zł</p>
+                <p className="font-semibold">Darmowa dostawa od {minSumForFreeDelivery}{currencySign}</p>
             </div>
         </div>
     );

@@ -3,12 +3,12 @@ import { useState } from "react";
 
 export function Photos({ product }) {
 
-    const [currentPhoto, setCurrentPhoto] = useState(product[0].photos[0]);
+    const [currentPhoto, setCurrentPhoto] = useState(product.photos[0]);
 
     return (
         <div className="flex flex-row ">
             <div className="flex flex-col">
-                {product[0].photos.map((photo) => {
+                {product.photos.map((photo) => {
                     return (
                         <img
                             onClick={() => { setCurrentPhoto(photo) }}
