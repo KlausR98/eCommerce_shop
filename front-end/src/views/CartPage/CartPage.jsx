@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 
 export function CartPage() {
-    const cartItems = useContext(CartContext);
+    const [cartItems] = useContext(CartContext);
 
     return (
         <FlexContainer>

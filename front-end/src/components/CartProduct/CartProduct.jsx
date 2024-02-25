@@ -1,9 +1,10 @@
 import RemoveIcon from "../../assets/remove.svg";
-import { NavLink } from "react-router-dom";
 import { Price } from "../Price/Price";
+import { useFetcher } from "react-router-dom";
 
 export function CartProduct({ cartProduct }) {
     const price = <Price product={cartProduct} />;
+    const { Form } = useFetcher();
 
     return (
 
@@ -31,14 +32,19 @@ export function CartProduct({ cartProduct }) {
                     </div>
                 </div>
                 <div className=" flex flex-row flex-start gap-8 items-center">
-                    <NavLink className="flex flex-row items-center gap-2 pb-4">
-                        <img
-                            src={RemoveIcon}
-                            alt="RemoveIcon"
-                            className="w-[16px] h-[16px]"
-                        />
-                        <p>Usuń</p>
-                    </NavLink>
+                    <Form
+                        action={`/delete-from-cart/${cartProduct.id}`}
+                        method="DELETE"
+                    >
+                        <button className="flex flex-row items-center gap-2 pb-4">
+                            <img
+                                src={RemoveIcon}
+                                alt="RemoveIcon"
+                                className="w-[16px] h-[16px]"
+                            />
+                            <p>Usuń</p>
+                        </button>
+                    </Form>
                     {/* <NavLink className="flex flex-row items-center gap-2 pb-4">
                         <img
                             src={BagIcon}

@@ -8,24 +8,28 @@ import { CategoryMenu } from "../CategoryMenu/CategoryMenu";
 import { MainContent } from "../MainContent/MainContent";
 import { Outlet } from "react-router-dom";
 import { CurrencyContext } from "../../contexts/CurrencyContext";
-import { useState } from "react";
 import { CURRENCIES } from "../../constants/currencies";
 import { CartContext } from "../../contexts/CartContext";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+
 
 export function Layout() {
-    const [currency, setCurrency] = useState(
-        localStorage["selected_currency"] || CURRENCIES.PLN
+    const [currency, setCurrency] = useLocalStorage(
+        "selected_currency", CURRENCIES.PLN
     );
 
-    const [cartItems, setCartItems] = useState(() => {
-        return localStorage["cart_products"]
-            ? JSON.parse(localStorage["cart_products"])
-            : [];
+    const [cartItems, setCartItems] = useLocalStorage(() => {
+        ("cart_products", []);
     });
+
+    function addProductToCart(product) {
+        const newState = [...cartItems, product];
+        setCartItems(newState);
+    }
 
     return (
         <>
-            <CartContext.Provider value={[cartItems, setCartItems]} >
+            <CartContext.Provider value={[cartItems, addProductToCart]} >
                 <CurrencyContext.Provider value={[currency, setCurrency]}>
                     <MainContent>
                         <TopBar>

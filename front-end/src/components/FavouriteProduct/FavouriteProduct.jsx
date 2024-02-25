@@ -2,12 +2,15 @@ import RemoveIcon from "../../assets/remove.svg";
 import BagIcon from "../../assets/bag.svg";
 import { useFetcher } from "react-router-dom";
 import { Price } from "../Price/Price";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 export function FavouriteProduct({ favourite }) {
     const product = favourite.product;
     const { Form } = useFetcher();
 
     const price = <Price product={product} />;
+    const [, addProductToCart] = useContext(CartContext);
 
     return (
         <div className="w-full border-t-2 border-solid border-[#7A7A7A] 
@@ -47,7 +50,12 @@ export function FavouriteProduct({ favourite }) {
                             <p>Usuń</p>
                         </button>
                     </Form>
-                    <button className="flex flex-row items-center gap-2 pb-4">
+                    <button
+                        className="flex flex-row items-center gap-2 pb-4"
+                        onClick={() => {
+                            addProductToCart(product);
+                        }}
+                    >
                         <img
                             src={BagIcon}
                             alt="BagIcon"
